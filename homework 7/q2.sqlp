@@ -1,0 +1,8 @@
+use geo;
+
+select y.name as country, y.population as population, n as num_religions
+from geo.world as x, x.mondial.country as y
+let n = case when y.religions is missing then 0
+when is_array(y.religions) then array_count(y.religions) else 1 end;
+
+-- Duration of all jobs: 0.337 sec

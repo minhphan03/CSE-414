@@ -1,0 +1,61 @@
+a/
+
+We have two functional dependencies D -> B, CE -> A
+
+iteration 1/ Take the set CE
+
+We have {C, E}+ = {C, E, A} -> {C, E}+ != {C, E} and {C, E}+ != {A, B, C, D, E} (violated both BCNF rule)
+So R(A,B,C,D,E) is not in BCNF form and can be decomposed into R1(C, E, A) and and R2(C, E, B, D)
+
+
+iteration 2/ We have functional dependecy D->B. Take attribute D in R2(C,E,B,D)
+
+R1(C,E,A) is already is in BCNF form because we can’t find any X in R1 such that X!= X+ and X+ != [all attributes].
+
+Take attribute D. {D}+ = {D, B}
+Because {D}+ != {D} and {D}+ != {C, E, B, D} so R2 violated both BCNF rules.
+Therefore R2 is not in BCNF form and can be decomposed.
+Decomppose R2(C,E,B,D) into R21(D, B) and R22(D, C, E)
+
+
+iteration 3/ 
+
+R21(D, B) is already is in BCNF form because we can’t find any X in R21 such that X!= X+ and X+ != [all attributes].
+
+Check R22(D, C, E)
+R22(D, C, E) is already is in BCNF form because we can’t find any X in R22 such that X!= X+ and X+ != [all attributes].
+
+Therefore, the final tables we have after the decomposition are:
+- R1(C,E,A)
+- R21(D,B)
+- R22(D,C,E)
+----------------------------
+b/
+
+We have three functional dependencies A->E, BC->A, DE->B
+
+1/ Take the set BC
+
+We have {B,C}+ = {B,C,A,E} -> {B,C}+ != {B,C} and {B,C}+ != {A,B,C,D,E} (violated both BCNF rules)
+So S(A,B,C,D,E) is not in BCNF form and can be decomposed into S1(B,C,A,E) and S2(B,C,D).
+
+2/ Check S1(B,C,A,E)
+
+Since {A}+ = {A,E} -> {A}+ !+ {A} and {A}+ != {B,C,A,E} hence violated the BCNF rule.
+Therefore S1(B,C,A,E) is not in BCNF form and can be decomposed into S11(A,E) and S12(B,C,A)
+
+Check S2(B,C,D): it is already in BCNF form because we can’t find any X in S2 such that X!= X+ and X+ != [all attributes].
+
+3/ Check S11(A,E): it is already in BCNF form because we can’t find any X in S11 such that X!= X+ and X+ != [all attributes].
+Check S12(B,C,A): it is already in BCNF form because we can’t find any X in S12 such that X!= X+ and X+ != [all attributes].
+
+Thereofre, the final schema is:
+- S11(A,E)
+- S12(A,B,C)
+- S2(B,C,D)
+----------------------------
+c/ A->A, B->B, C->C, D->D
+----------------------------
+d/ A -> B, B-> C, C->D, D->A
+----------------------------
+e/ B->C, C-> B, D->A, A->D, AD->B

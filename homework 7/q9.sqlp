@@ -1,0 +1,16 @@
+SELECT y1.name first_country, y2.name second_country
+FROM 
+	geo.world x, x.mondial.country y1, x.mondial.country y2, x.mondial.mountain m,
+	split(m.`-country`, " ") m1,
+	split(m.`-country`, " ") m2,
+	x.mondial.sea s,
+	split(s.`-country`, " ") s1,
+	split(s.`-country`, " ") s2
+WHERE
+	m1 = y1.`-car_code`
+	and m2 = y2.`-car_code`
+	and y1.`-car_code`  < y2.`-car_code`
+	and s1 = y1.`-car_code`
+	and s2 = y2.`-car_code`;
+
+-- Duration of all jobs: 856 sec

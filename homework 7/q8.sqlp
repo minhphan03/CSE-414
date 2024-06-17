@@ -1,0 +1,11 @@
+USE geo;
+
+SELECT r.ctc country_code, r.ctn country_name, r.area as area
+FROM
+	(SELECT  float(x.`-area`) as area, x.`-car_code` ctc, x.name ctn, 
+		(SELECT c.name sea FROM w.mondial.sea c, split(c.`-country`, " ") s WHERE s = x.`-car_code`) seas
+	FROM geo.world w, w.mondial.country x) r
+WHERE array_count(r.seas) = 0
+ORDER BY area desc;
+
+-- Duration of all jobs: 2.077 sec

@@ -1,0 +1,9 @@
+-- Duration of all jobs: 0.319 sec
+
+use geo;
+
+SELECT u.`#text` as ethnic_groups, sum(float(y.population) * float(u.`-percentage`)/100)
+FROM geo.world x, x.mondial.country y,
+case when is_array(y.ethnicgroups) then y.ethnicgroups
+when y.ethnicgroups is missing then [] else [y.ethnicgroups] end u
+group by u.`#text`;

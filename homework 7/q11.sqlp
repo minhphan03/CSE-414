@@ -1,0 +1,24 @@
+USE geoindex;
+
+SELECT c1.name first_country, c2.name second_country, 
+FROM 
+	geoindex.country c1, 
+	geoindex.country c2, 
+	geoindex.mountain m1, 
+	geoindex.mountain m2, 
+	split(m1.`-country`, " ") sm1, 
+	split(m2.`-country`, " ") sm2, 
+	geoindex.sea s1, 
+	split(s1.`-country`, " ") ss1, 
+	geoindex.sea s2, 
+	split(s2.`-country`, " ") ss2
+WHERE 
+	ss1 = c1.`-car_code` 
+	and ss2 = c2.`-car_code` 
+	and sm1 = c1.`-car_code` 
+	and sm2 = c2.`-car_code` 
+	and c1.`-car_code` < c2.`-car_code`
+	and m1.`-id` = m2.`-id`
+	and s1.`-id` = s2.`-id`;
+
+-- Duration of all jobs: 0.232 sec

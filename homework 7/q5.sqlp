@@ -1,0 +1,8 @@
+use geo;
+
+select z.name as mountain, int(z.height) as height, cc_list as country_code, y.name as country_name
+from geo.world x, x.mondial.country y, x.mondial.mountain z, split(z.`-country`, " ") cc_list
+where cc_list = y.`-car_code`
+order by height desc;
+
+-- Duration of all jobs: 4.121 sec
